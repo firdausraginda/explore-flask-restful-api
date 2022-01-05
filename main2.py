@@ -57,7 +57,7 @@ class Video(Resource):
         return result
 
     @marshal_with(resource_fields)
-    def put(self, video_id):
+    def post(self, video_id):
         args = video_put_args.parse_args()
         
         result = VideoModel.query.filter_by(id=video_id).first()
