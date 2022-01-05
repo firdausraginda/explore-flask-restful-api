@@ -11,15 +11,6 @@ api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-class VideoModel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    views = db.Column(db.Integer, nullable=False)
-    likes = db.Column(db.Integer, nullable=False)
-
-    def __repr__(self):
-        return f"Video(name={name}), views={views}, likes={likes}"
-
 # only create db once 
 # db.create_all()
 

@@ -46,10 +46,13 @@ resource_fields = {
 
 class Video(Resource):
     @marshal_with(resource_fields)
-    def get(self, video_id):
-        result = VideoModel.query.filter_by(id=video_id).first()
-        if not result:
-            abort(404, message="id doesn't exists!")
+    def get(self, video_id=None):
+        if not video_id:
+            result = VideoModel.query.all()
+        else:
+            result = VideoModel.query.filter_by(id=video_id).first()
+            if not result:
+                abort(404, message="id doesn't exists!")
             
         return result
 
@@ -71,8 +74,9 @@ class Video(Resource):
         del videos[video_id]
         return '', 204
 
+
 # register class as resource
-api.add_resource(Video, "/video/<int:video_id>")
+api.add_resource(Video, "/video", "/video/<int:video_id>")
 
 if __name__ == "__main__":
     app.run(debug=True)  # `debug=True` to see all the logging, testing purpose

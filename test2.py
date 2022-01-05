@@ -14,5 +14,9 @@ for i in range(len(data)):
     print(response.json())
 
 input()
-response = requests.get(BASE + "video/100")
+response = requests.get(BASE + "video/1")
+print(response.json())
+
+input()
+response = requests.get(BASE + "video")
 print(response.json())
