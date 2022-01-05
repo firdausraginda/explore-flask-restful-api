@@ -17,5 +17,9 @@ response = requests.get(BASE + "video/1")
 print(response.json())
 
 input()
+response = requests.delete(BASE + "video/1")
+print(response)
+
+input()
 response = requests.get(BASE + "video")
 print(response.json())
