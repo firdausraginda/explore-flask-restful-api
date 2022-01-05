@@ -9,16 +9,24 @@ data = [
 ]
 
 for i in range(len(data)):
-    response = requests.post(BASE + f"video/{i}", data[i])
+    response = requests.post(BASE + f"video/{i+1}", data[i])
     print(response.json())
 
 input()
-response = requests.get(BASE + "video/1")
+response = requests.get(BASE + "video/2")
 print(response.json())
 
 input()
-response = requests.delete(BASE + "video/1")
+response = requests.delete(BASE + "video/2")
 print(response)
+
+input()
+response = requests.get(BASE + "video")
+print(response.json())
+
+input()
+response = requests.patch(BASE + "video/1", {"name": "study singin", "likes": 30})
+print(response.json())
 
 input()
 response = requests.get(BASE + "video")

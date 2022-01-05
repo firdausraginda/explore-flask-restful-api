@@ -35,6 +35,14 @@ video_post_args.add_argument(
 video_post_args.add_argument(
     "likes", type=int, help="likes on the video is required", required=True)
 
+video_update_args = reqparse.RequestParser()
+video_update_args.add_argument(
+    "name", type=str)
+video_update_args.add_argument(
+    "views", type=int)
+video_update_args.add_argument(
+    "likes", type=int)
+
 
 resource_fields = {
     'id': fields.Integer,
@@ -68,6 +76,22 @@ class Video(Resource):
         db.session.add(video)
         db.session.commit()
         return video, 201
+
+    @marshal_with(resource_fields)
+    def patch(self, video_id):
+        args = video_update_args.parse_args()
+
+        result = VideoModel.query.filter_by(id=video_id).first()
+        if not result:
+            abort(404, message="id not found, can't update")
+        
+        for key, value in args.items():
+            if value:
+                setattr(result, key, value)
+
+        db.session.commit()
+
+        return result
 
     def delete(self, video_id):
         result = VideoModel.query.filter_by(id=video_id).first()
